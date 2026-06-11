@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Trips | Rohit ✦ Kelsie</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Leaflet map CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+</head>
+
+<body>
+  <header class="navbar">
+    <a href="index.html" class="logo">R ✦ K</a>
+
+    <nav>
+      <a href="music.html">Music</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="timeline.html">Timeline</a>
+      <a href="trips.html" class="active">Trips</a>
+      <a href="counters.html">Counters</a>
+      <a href="similarities.html">Similarities</a>
+      <a href="firsts.html">Firsts</a>
+    </nav>
+  </header>
+
+  <main class="content-page trips-page">
+    <section class="page-hero trips-hero">
+      <h1>Trips</h1>
+    </section>
+
+    <section class="map-section">
+      <div id="trip-map"></div>
+    </section>
+
+    <section class="trip-list-section">
+      <div class="section-heading">
+        <h2>Places We’ve Been</h2>
+      </div>
+
+      <div class="trip-preview-grid">
+
+  <a href="trip-breckenridge.html" class="trip-preview-card breckenridge-card">
+    <h3>Breckenridge</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-denver.html" class="trip-preview-card denver-card">
+    <h3>Denver</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-lofoten.html" class="trip-preview-card lofoten-card">
+    <h3>Lofoten Islands</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-horsens.html" class="trip-preview-card horsens-card">
+    <h3>Horsens</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-aarhus.html" class="trip-preview-card aarhus-card">
+    <h3>Aarhus</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-paris.html" class="trip-preview-card paris-card">
+    <h3>Paris</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-algarve.html" class="trip-preview-card algarve-card">
+    <h3>Algarve</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-oslo.html" class="trip-preview-card oslo-card">
+    <h3>Oslo</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-rovaniemi.html" class="trip-preview-card rovaniemi-card">
+    <h3>Rovaniemi</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-helsinki.html" class="trip-preview-card helsinki-card">
+    <h3>Helsinki</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-barcelona.html" class="trip-preview-card barcelona-card">
+    <h3>Barcelona</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-malaga.html" class="trip-preview-card malaga-card">
+    <h3>Málaga</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-tenerife.html" class="trip-preview-card tenerife-card">
+    <h3>Tenerife</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-seville.html" class="trip-preview-card seville-card">
+    <h3>Seville</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-madrid.html" class="trip-preview-card madrid-card">
+    <h3>Madrid</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-athens.html" class="trip-preview-card athens-card">
+    <h3>Athens</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-santorini.html" class="trip-preview-card santorini-card">
+    <h3>Santorini</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-heraklion.html" class="trip-preview-card heraklion-card">
+    <h3>Heraklion</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-prague.html" class="trip-preview-card prague-card">
+    <h3>Prague</h3>
+    <p></p>
+  </a>
+
+  <a href="trip-mons-klint.html" class="trip-preview-card mons-klint-card">
+    <h3>Møns Klint</h3>
+    <p></p>
+  </a>
+
+</div>
+    </section>
+  </main>
+
+  <!-- Leaflet map JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    const map = L.map("trip-map", {
+      scrollWheelZoom: true
+    }).setView([48, 10], 4);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(map);
+
+    const starIcon = L.divIcon({
+      className: "star-map-pin",
+      html: `<span>✦</span>`,
+      iconSize: [18, 18],
+      iconAnchor: [9, 9],
+      popupAnchor: [0, -10]
+    });
+
+    const trips = [
+      {
+        name: "Athens, Greece",
+        coords: [37.9838, 23.7275],
+        description: "",
+        page: "trip-athens.html"
+      },
+      {
+        name: "Barcelona, Spain",
+        coords: [41.3874, 2.1686],
+        description: "",
+        page: "trip-barcelona.html"
+      },
+      {
+        name: "Prague, Czech Republic",
+        coords: [50.0755, 14.4378],
+        description: "",
+        page: "trip-prague.html"
+      },
+      {
+        name: "Copenhagen, Denmark",
+        coords: [55.6761, 12.5683],
+        description: "",
+        page: "trip-copenhagen.html"
+      },
+      {
+        name: "Breckenridge, Colorado",
+        coords: [39.4817, -106.0384],
+        description: "",
+        page: "trip-breckenridge.html"
+      },
+      {
+        name: "Denver, Colorado",
+        coords: [39.7392, -104.9903],
+        description: "",
+        page: "trip-denver.html"
+      },
+      {
+        name: "Lofoten Islands, Norway",
+        coords: [68.1475, 13.6115],
+        description: "",
+        page: "trip-lofoten.html"
+      },
+      {
+        name: "Paris, France",
+        coords: [48.8566, 2.3522],
+        description: "",
+        page: "trip-paris.html"
+      },
+      {
+        name: "Algarve, Portugal",
+        coords: [37.0179, -7.9308],
+        description: "",
+        page: "trip-algarve.html"
+      },
+      {
+        name: "Rovaniemi, Finland",
+        coords: [66.5039, 25.7294],
+        description: "",
+        page: "trip-rovaniemi.html"
+      },
+      {
+        name: "Helsinki, Finland",
+        coords: [60.1699, 24.9384],
+        description: "",
+        page: "trip-helsinki.html"
+      },
+      {
+        name: "Málaga, Spain",
+        coords: [36.7213, -4.4214],
+        description: "",
+        page: "trip-malaga.html"
+      },
+      {
+        name: "Tenerife, Spain",
+        coords: [28.2916, -16.6291],
+        description: "",
+        page: "trip-tenerife.html"
+      },
+      {
+        name: "Seville, Spain",
+        coords: [37.3891, -5.9845],
+        description: "",
+        page: "trip-seville.html"
+      },
+      {
+        name: "Madrid, Spain",
+        coords: [40.4168, -3.7038],
+        description: "",
+        page: "trip-madrid.html"
+      },
+      {
+        name: "Santorini, Greece",
+        coords: [36.4618, 25.3753],
+        description: "",
+        page: "trip-santorini.html"
+      },
+      {
+        name: "Heraklion, Greece",
+        coords: [35.3387, 25.1442],
+        description: "",
+        page: "trip-heraklion.html"
+      },
+      {
+        name: "Oslo, Norway",
+        coords: [59.9139, 10.7522],
+        description: "",
+        page: "trip-oslo.html"
+      },
+      {
+        name: "Horsens, Denmark",
+        coords: [55.8607, 9.8503],
+        description: "",
+        page: "trip-horsens.html"
+      },
+      {
+        name: "Aarhus, Denmark",
+        coords: [56.1629, 10.2039],
+        description: "",
+        page: "trip-aarhus.html"
+      },
+      {
+        name: "Møns Klint, Denmark",
+        coords: [54.9667, 12.5500],
+        description: "",
+        page: "trip-mons-klint.html"
+      }
+    ];
+
+    trips.forEach((trip) => {
+      const popupDescription = trip.description
+        ? `<p>${trip.description}</p>`
+        : "";
+
+      L.marker(trip.coords, { icon: starIcon })
+        .addTo(map)
+        .bindPopup(`
+          <div class="trip-popup">
+            <h3>${trip.name}</h3>
+            ${popupDescription}
+            <a href="${trip.page}">Open trip</a>
+          </div>
+        `);
+    });
+  </script>
+</body>
+</html>
