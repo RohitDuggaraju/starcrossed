@@ -521,3 +521,407 @@ nav a.active {
   border: none;
   margin-bottom: 0;
 }
+/* Trips page */
+
+.trips-page {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.72)),
+    url("images/stars-bg.png");
+}
+
+.trips-hero {
+  margin-bottom: 35px;
+}
+
+.map-section {
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 30px;
+
+  background: rgba(5, 6, 18, 0.68);
+  box-shadow: 0 0 35px rgba(160, 170, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+#trip-map {
+  width: 100%;
+  height: 620px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #050510;
+}
+
+/* Custom star pin */
+/* Custom dark star pin for light map */
+.star-map-pin {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Custom dark star pin for light map */
+.star-map-pin {
+  background: transparent !important;
+  border: none !important;
+}
+
+.star-map-pin span {
+  width: 18px;
+  height: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #080814;
+  font-size: 16px;
+  line-height: 1;
+
+  text-shadow:
+    0 0 2px white,
+    0 0 4px white,
+    0 0 7px rgba(5, 5, 16, 0.5);
+
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.65));
+}
+
+/* Leaflet popup styling */
+.leaflet-popup-content-wrapper {
+  background: rgba(5, 6, 18, 0.94);
+  color: white;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 25px rgba(180, 190, 255, 0.2);
+}
+
+.leaflet-popup-tip {
+  background: rgba(5, 6, 18, 0.94);
+}
+
+.trip-popup h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.trip-popup p {
+  color: #ddd9f5;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.trip-popup a {
+  color: white;
+  text-decoration: none;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.trip-list-section {
+  max-width: 1250px;
+  margin: 70px auto 0;
+}
+
+.trip-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 30px;
+}
+
+.trip-preview-card {
+  display: block;
+  padding: 24px;
+  min-height: 170px;
+
+  color: white;
+  text-decoration: none;
+
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  background: rgba(5, 6, 18, 0.66);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 28px rgba(160, 170, 255, 0.08);
+
+  transition: 0.25s;
+}
+
+.trip-preview-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 32px rgba(220, 220, 255, 0.22);
+}
+
+.trip-preview-card h3 {
+  font-size: 1.25rem;
+  font-weight: normal;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.trip-preview-card p {
+  color: #ddd9f5;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+/* Make map and cards responsive */
+@media (max-width: 1000px) {
+  #trip-map {
+    height: 520px;
+  }
+
+  .trip-preview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .map-section {
+    padding: 10px;
+    border-radius: 22px;
+  }
+
+  #trip-map {
+    height: 430px;
+    border-radius: 16px;
+  }
+
+  .trip-preview-grid {
+    grid-template-columns: 1fr;
+  }
+}
+#trip-map {
+  filter: contrast(1.08) brightness(0.82) saturate(0.75);
+}
+
+.map-section {
+  position: relative;
+}
+
+.map-section::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border-radius: 22px;
+  pointer-events: none;
+  z-index: 500;
+
+  background:
+    radial-gradient(circle at 50% 50%, transparent 45%, rgba(5, 6, 18, 0.45) 100%),
+    linear-gradient(rgba(120, 125, 255, 0.05), rgba(255, 214, 246, 0.04));
+}
+/* Themed trip cards */
+
+.trip-preview-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.trip-preview-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.35), transparent 18%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.18), transparent 22%);
+}
+
+.trip-preview-card h3,
+.trip-preview-card p {
+  position: relative;
+  z-index: 2;
+}
+
+.trip-preview-card h3 {
+  text-shadow: 0 0 14px rgba(255, 255, 255, 0.45);
+}
+
+/* Greece / Mediterranean */
+
+/* Greece / Mediterranean */
+
+.athens-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.12), rgba(5, 6, 18, 0.56)),
+    linear-gradient(135deg, #f8fbff, #2f76d2, #f0c84b, #ffffff);
+  border-color: rgba(240, 200, 75, 0.48);
+}
+
+.santorini-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.08), rgba(5, 6, 18, 0.5)),
+    linear-gradient(135deg, #ffffff, #2b7fe2, #dff1ff);
+  border-color: rgba(255, 255, 255, 0.52);
+}
+
+
+.heraklion-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.1), rgba(5, 6, 18, 0.54)),
+    linear-gradient(135deg, #f9fcff, #2679d8, #cfe6ff);
+  border-color: rgba(38, 121, 216, 0.44);
+}
+
+
+/* Spain */
+
+.barcelona-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.14), rgba(5, 6, 18, 0.58)),
+    linear-gradient(135deg, #8fd8ff, #f7df8f, #f7b7a3);
+  border-color: rgba(143, 216, 255, 0.4);
+}
+
+.madrid-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.18), rgba(5, 6, 18, 0.62)),
+    linear-gradient(135deg, #c62828, #f2c94c, #8b1e1e);
+  border-color: rgba(242, 201, 76, 0.4);
+}
+
+.seville-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.18), rgba(5, 6, 18, 0.64)),
+    linear-gradient(135deg, #f2cf63, #b98546, #7a5230);
+  border-color: rgba(242, 207, 99, 0.4);
+}
+
+.malaga-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.18), rgba(5, 6, 18, 0.64)),
+    linear-gradient(135deg, #f0cb59, #b78948, #7a5a39);
+  border-color: rgba(240, 203, 89, 0.4);
+}
+
+.tenerife-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.10), rgba(5, 6, 18, 0.56)),
+    linear-gradient(
+      135deg,
+      #2f9fd6 10%,
+      #7ec9df 32%,
+      #dcc98a 40%,
+      #2f6f4a 72%,
+      #143621 100%
+    );
+  border-color: rgba(126, 201, 223, 0.45);
+}
+
+/* Portugal */
+
+.algarve-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.12), rgba(5, 6, 18, 0.56)),
+    linear-gradient(135deg, #22b8c7, #6edfe7, #f4d34f, #ffe99a);
+  border-color: rgba(244, 211, 79, 0.5);
+}
+
+/* France */
+
+.paris-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.16), rgba(5, 6, 18, 0.6)),
+    linear-gradient(135deg, #5f0d1b, #a91732, #d94f78, #f2a6c2);
+  border-color: rgba(242, 166, 194, 0.45);
+}
+
+/* Norway / Finland / Nordic */
+
+.lofoten-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.14), rgba(5, 6, 18, 0.62)),
+    linear-gradient(135deg, #f5fbff, #0d6b7a, #9fd8ff);
+  border-color: rgba(159, 216, 255, 0.42);
+}
+
+.oslo-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.16), rgba(5, 6, 18, 0.62)),
+    linear-gradient(135deg, #0f3a63, #1f5f8d, #f3f8fc);
+  border-color: rgba(243, 248, 252, 0.42);
+}
+
+.rovaniemi-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.16), rgba(5, 6, 18, 0.66)),
+    linear-gradient(135deg, #b71c1c, #1f6b34, #f2f5f7);
+  border-color: rgba(242, 245, 247, 0.4);
+}
+
+/* Denmark */
+
+.horsens-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.18), rgba(5, 6, 18, 0.66)),
+    linear-gradient(135deg, #7b624a, #9a948e, #5f5651);
+  border-color: rgba(154, 148, 142, 0.38);
+}
+
+.aarhus-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.18), rgba(5, 6, 18, 0.66)),
+    linear-gradient(135deg, #14284f, #2f3e8f, #4b4ca8);
+  border-color: rgba(75, 76, 168, 0.38);
+}
+
+/* Czech Republic */
+
+.prague-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.10), rgba(5, 6, 18, 0.58)),
+    linear-gradient(135deg, #2a2a2a, #ffe14f);
+  border-color: rgba(255, 225, 79, 0.58);
+}
+
+/* Colorado */
+
+.breckenridge-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.14), rgba(5, 6, 18, 0.66)),
+    linear-gradient(135deg, #2d5a3b, #5d3c24, #ffffff);
+  border-color: rgba(255, 255, 255, 0.42);
+}
+.denver-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.16), rgba(5, 6, 18, 0.64)),
+    linear-gradient(135deg, #2b6b45, #d9783a, #f0b36b);
+  border-color: rgba(217, 120, 58, 0.4);
+}
+.helsinki-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.22), rgba(5, 6, 18, 0.72)),
+    linear-gradient(135deg, #1a2d42, #758da3, #d8e2ec);
+  border-color: rgba(216, 226, 236, 0.35);
+}
+
+/* Denmark */
+
+.copenhagen-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.22), rgba(5, 6, 18, 0.7)),
+    linear-gradient(135deg, #10243d, #7b9bbd, #f2c7d3);
+  border-color: rgba(242, 199, 211, 0.35);
+}
+.mons-klint-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.12), rgba(5, 6, 18, 0.67)),
+    linear-gradient(135deg, #f4f1e6, #5fb8c8, #214d5b);
+  border-color: rgba(244, 241, 230, 0.45);
+}
+.trip-preview-card h3 {
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.22), 0 0 14px rgba(255, 255, 255, 0.28);
+}
+/* Extra hover glow per card */
+.trip-preview-card:hover {
+  filter: brightness(1.08) saturate(1.08);
+}
