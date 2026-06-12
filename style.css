@@ -925,3 +925,155 @@ nav a.active {
 .trip-preview-card:hover {
   filter: brightness(1.08) saturate(1.08);
 }
+/* Counters page */
+
+.counters-page {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.72)),
+    url("images/stars-bg.png");
+}
+
+.counters-hero {
+  margin-bottom: 35px;
+}
+
+.counters-grid {
+  max-width: 1250px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.counter-card {
+  position: relative;
+  overflow: hidden;
+
+  min-height: 220px;
+  padding: 30px;
+
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.14), transparent 24%),
+    radial-gradient(circle at 80% 70%, rgba(255, 214, 246, 0.12), transparent 28%),
+    rgba(5, 6, 18, 0.68);
+
+  box-shadow:
+    0 0 32px rgba(160, 170, 255, 0.10),
+    inset 0 0 40px rgba(255, 255, 255, 0.03);
+
+  backdrop-filter: blur(10px);
+}
+
+.counter-card::before {
+  content: "✦";
+  position: absolute;
+  right: 28px;
+  top: 22px;
+
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 1.4rem;
+
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.6),
+    0 0 22px rgba(216, 210, 255, 0.4);
+}
+
+.primary-counter {
+  grid-column: span 2;
+  min-height: 250px;
+
+  background:
+    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.16), transparent 24%),
+    radial-gradient(circle at 82% 70%, rgba(255, 214, 246, 0.18), transparent 30%),
+    linear-gradient(135deg, rgba(25, 32, 78, 0.78), rgba(92, 50, 87, 0.62));
+}
+
+.anniversary-counter {
+  background:
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.17), transparent 22%),
+    linear-gradient(135deg, rgba(76, 45, 95, 0.78), rgba(175, 96, 128, 0.55));
+}
+
+.birthday-counter {
+  background:
+    radial-gradient(circle at 22% 20%, rgba(255, 255, 255, 0.14), transparent 22%),
+    linear-gradient(135deg, rgba(16, 37, 72, 0.76), rgba(88, 92, 150, 0.52));
+}
+
+.counter-label {
+  margin-bottom: 18px;
+
+  color: #d8d2ff;
+  font-size: 0.78rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.counter-card h2 {
+  color: white;
+  font-size: clamp(2rem, 4.4vw, 4.8rem);
+  font-weight: normal;
+  letter-spacing: 4px;
+  line-height: 1.18;
+
+  text-shadow:
+    0 0 22px rgba(255, 255, 255, 0.45),
+    0 0 40px rgba(180, 190, 255, 0.18);
+}
+
+.counter-card h2 span {
+  display: inline-block;
+  margin-right: 18px;
+}
+
+.counter-card h2 small {
+  margin-left: 4px;
+
+  color: #d8d2ff;
+  font-size: 0.42em;
+  letter-spacing: 1px;
+}
+
+.counter-date {
+  margin-top: 20px;
+
+  color: #cfcbe8;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 900px) {
+  .counters-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .primary-counter {
+    grid-column: span 1;
+  }
+
+  .counter-card {
+    min-height: 190px;
+  }
+}
+
+@media (max-width: 600px) {
+  .counter-card {
+    padding: 24px;
+  }
+
+  .counter-card h2 span {
+    margin-right: 10px;
+  }
+
+  .counter-label {
+    letter-spacing: 2.5px;
+  }
+
+  .counter-date {
+    font-size: 0.85rem;
+  }
+}
