@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Counters | Rohit ✦ Kelsie</title>
+
+  <link rel="stylesheet" href="style.css?v=4" />
+</head>
+
+<body>
+  <header class="navbar">
+    <a href="index.html" class="logo">R ✦ K</a>
+
+    <nav>
+      <a href="music.html">Music</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="timeline.html">Timeline</a>
+      <a href="trips.html">Trips</a>
+      <a href="counters.html" class="active">Counters</a>
+      <a href="similarities.html">Similarities</a>
+      <a href="firsts.html">Firsts</a>
+    </nav>
+  </header>
+
+  <main class="content-page counters-page">
+    <section class="page-hero counters-hero">
+      <h1>Counters</h1>
+    </section>
+
+    <section class="counters-grid">
+
+      <article class="counter-card primary-counter">
+        <p class="counter-label">Days we’ve been dating</p>
+        <h2 id="dating-counter">Loading...</h2>
+        <p class="counter-date">Since October 2, 2025</p>
+      </article>
+
+      <article class="counter-card anniversary-counter">
+        <p class="counter-label">Days til anniversary</p>
+        <h2 id="anniversary-counter">Loading...</h2>
+        <p class="counter-date">October 2</p>
+      </article>
+
+      <article class="counter-card">
+        <p class="counter-label">Days since we met</p>
+        <h2 id="met-counter">Loading...</h2>
+        <p class="counter-date">Since April 18, 2025</p>
+      </article>
+
+      <article class="counter-card">
+        <p class="counter-label">Days since we liked each other</p>
+        <h2 id="liked-counter">Loading...</h2>
+        <p class="counter-date">Since June 10, 2025</p>
+      </article>
+
+      <article class="counter-card">
+        <p class="counter-label">Days since first kiss</p>
+        <h2 id="kiss-counter">Loading...</h2>
+        <p class="counter-date">Since July 1, 2025</p>
+      </article>
+
+      <article class="counter-card birthday-counter">
+        <p class="counter-label">Days til Kelsie’s birthday</p>
+        <h2 id="kelsie-birthday-counter">Loading...</h2>
+        <p class="counter-date">January 17</p>
+      </article>
+
+      <article class="counter-card birthday-counter">
+        <p class="counter-label">Days til Rohit’s birthday</p>
+        <h2 id="rohit-birthday-counter">Loading...</h2>
+        <p class="counter-date">April 19</p>
+      </article>
+
+      <article class="counter-card">
+        <p class="counter-label">Days since we first cracked</p>
+        <h2 id="cracked-counter">Loading...</h2>
+        <p class="counter-date">Since August 1, 2025</p>
+      </article>
+
+    </section>
+  </main>
+
+  <script>
+  function startOfLocalDay(year, monthIndex, day) {
+    return new Date(year, monthIndex, day, 0, 0, 0, 0);
+  }
+
+  function getNextAnnualDate(monthIndex, day) {
+    const now = new Date();
+    let target = startOfLocalDay(now.getFullYear(), monthIndex, day);
+
+    if (target <= now) {
+      target = startOfLocalDay(now.getFullYear() + 1, monthIndex, day);
+    }
+
+    return target;
+  }
+
+  function getYearsMonthsDaysSince(startDate) {
+    const now = new Date();
+
+    let years = now.getFullYear() - startDate.getFullYear();
+
+    let yearAnchor = new Date(startDate);
+    yearAnchor.setFullYear(startDate.getFullYear() + years);
+
+    if (yearAnchor > now) {
+      years--;
+      yearAnchor = new Date(startDate);
+      yearAnchor.setFullYear(startDate.getFullYear() + years);
+    }
+
+    let months = now.getMonth() - yearAnchor.getMonth();
+
+    if (months < 0) {
+      months += 12;
+    }
+
+    let monthAnchor = new Date(yearAnchor);
+    monthAnchor.setMonth(yearAnchor.getMonth() + months);
+
+    if (monthAnchor > now) {
+      months--;
+      monthAnchor = new Date(yearAnchor);
+      monthAnchor.setMonth(yearAnchor.getMonth() + months);
+    }
+
+    const msPerDay = 1000 * 60 * 60 * 24;
+    const days = Math.floor((now - monthAnchor) / msPerDay);
+
+    return { years, months, days };
+  }
+
+  function getCountdown(targetDate) {
+    const now = new Date();
+    let diff = targetDate - now;
+
+    if (diff < 0) {
+      diff = 0;
+    }
+
+    const msPerSecond = 1000;
+    const msPerMinute = msPerSecond * 60;
+    const msPerHour = msPerMinute * 60;
+    const msPerDay = msPerHour * 24;
+
+    let months =
+      (targetDate.getFullYear() - now.getFullYear()) * 12 +
+      (targetDate.getMonth() - now.getMonth());
+
+    let monthAnchor = new Date(now);
+    monthAnchor.setMonth(monthAnchor.getMonth() + months);
+
+    if (monthAnchor > targetDate) {
+      months--;
+      monthAnchor = new Date(now);
+      monthAnchor.setMonth(monthAnchor.getMonth() + months);
+    }
+
+    let remaining = targetDate - monthAnchor;
+
+    const days = Math.floor(remaining / msPerDay);
+    remaining %= msPerDay;
+
+    const hours = Math.floor(remaining / msPerHour);
+    remaining %= msPerHour;
+
+    const minutes = Math.floor(remaining / msPerMinute);
+    remaining %= msPerMinute;
+
+    const seconds = Math.floor(remaining / msPerSecond);
+
+    return { months, days, hours, minutes, seconds };
+  }
+
+  function formatCountUp(startDate) {
+    const { years, months, days } = getYearsMonthsDaysSince(startDate);
+
+    const yearText = years === 1 ? "year" : "years";
+    const monthText = months === 1 ? "month" : "months";
+    const dayText = days === 1 ? "day" : "days";
+
+    return `${years} ${yearText}, ${months} ${monthText}, ${days} ${dayText}`;
+  }
+
+  function formatCountdown(targetDate) {
+    const { months, days, hours, minutes, seconds } = getCountdown(targetDate);
+
+    return `
+      <span>${months}<small>mo</small></span>
+      <span>${days}<small>d</small></span>
+      <span>${hours}<small>h</small></span>
+      <span>${minutes}<small>m</small></span>
+      <span>${seconds}<small>s</small></span>
+    `;
+  }
+
+  function updateCounters() {
+    const datingStart = startOfLocalDay(2025, 9, 2);
+    const metDate = startOfLocalDay(2025, 3, 18);
+    const likedDate = startOfLocalDay(2025, 5, 10);
+    const firstKissDate = startOfLocalDay(2025, 6, 1);
+    const crackedDate = startOfLocalDay(2025, 7, 1);
+
+    const anniversary = getNextAnnualDate(9, 2);
+    const kelsieBirthday = getNextAnnualDate(0, 17);
+    const rohitBirthday = getNextAnnualDate(3, 19);
+
+    document.getElementById("dating-counter").textContent = formatCountUp(datingStart);
+    document.getElementById("met-counter").textContent = formatCountUp(metDate);
+    document.getElementById("liked-counter").textContent = formatCountUp(likedDate);
+    document.getElementById("kiss-counter").textContent = formatCountUp(firstKissDate);
+    document.getElementById("cracked-counter").textContent = formatCountUp(crackedDate);
+
+    document.getElementById("anniversary-counter").innerHTML = formatCountdown(anniversary);
+    document.getElementById("kelsie-birthday-counter").innerHTML = formatCountdown(kelsieBirthday);
+    document.getElementById("rohit-birthday-counter").innerHTML = formatCountdown(rohitBirthday);
+  }
+
+  updateCounters();
+  setInterval(updateCounters, 1000);
+</script>
+</body>
+</html>
