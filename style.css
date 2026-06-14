@@ -763,7 +763,23 @@ nav a.active {
     linear-gradient(135deg, #ffffff, #2b7fe2, #dff1ff);
   border-color: rgba(255, 255, 255, 0.52);
 }
-
+.nashville-card {
+  background:
+    linear-gradient(rgba(5, 6, 18, 0.10), rgba(5, 6, 18, 0.50)),
+    linear-gradient(
+      135deg,
+      #0717ff 0%,
+      #0717ff 0%,
+      #ff2a00 32%,
+      #ff7a00 82%,
+      #18ff5b 100%
+    );
+  border-color: rgba(255, 90, 0, 0.5);
+  box-shadow:
+    0 0 18px rgba(7, 23, 255, 0.22),
+    0 0 26px rgba(255, 42, 0, 0.2),
+    0 0 34px rgba(24, 255, 91, 0.13);
+}
 
 .heraklion-card {
   background:
