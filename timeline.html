@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Timeline | Rohit ✦ Kelsie</title>
+
+  <link rel="stylesheet" href="style.css?v=7" />
+</head>
+
+<body>
+  <header class="navbar">
+    <a href="index.html" class="logo">R ✦ K</a>
+
+    <nav>
+      <a href="music.html">Music</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="timeline.html" class="active">Timeline</a>
+      <a href="trips.html">Trips</a>
+      <a href="counters.html">Counters</a>
+      <a href="similarities.html">Similarities</a>
+      <a href="firsts.html">Firsts</a>
+    </nav>
+  </header>
+
+  <main class="content-page timeline-page">
+    <section class="page-hero timeline-hero">
+      <h1>Timeline</h1>
+      <p>Every day, every chapter, every little piece of us.</p>
+    </section>
+
+    <section class="timeline-tools">
+      <input
+        type="text"
+        id="timelineSearch"
+        placeholder="Search a date, word, memory, first, place..."
+      />
+
+      <button id="randomMemory">Random</button>
+      <button id="clearSearch">Clear</button>
+    </section>
+
+    <p class="timeline-count" id="timelineCount"></p>
+
+    <section class="vertical-timeline" id="timelineContainer"></section>
+  </main>
+<script>
+  const TIMELINE_START_DATE = "2025-04-18";
+  const TIMELINE_END_DATE = "2027-05-14";
+
+  const firsts = {
+    "2025-04-18": ["First Meeting"],
+    "2025-06-18": ["First Long Conversation"],
+    "2025-07-01": ["First Kiss"],
+    "2025-07-09": ["First Date"],
+    "2025-07-23": ["First Dance"],
+    "2025-07-30": ["First Road Trip"],
+    "2025-08-01": ["First Crack"],
+    "2025-10-02": ["Asked Her To Be My Girlfriend"],
+    "2025-10-19": ["First I Love You"],
+    "2025-11-07": ["First Zoo Day"],
+    "2025-11-14": ["First Time We Stayed Somewhere"],
+    "2025-12-14": ["First Flight Together"],
+    "2026-01-23": ["First Copenhagen Date"]
+  };
+
+  const themedCards = {
+    "2025-07-01": "theme-first-kiss",
+    "2025-07-09": "theme-first-date",
+    "2025-08-01": "theme-first-crack",
+    "2025-10-02": "theme-girlfriend"
+  };
+
+  const memoryData = {
+    "2025-04-18": {
+      title: "First Convo / Day We Met",
+      description: `first convo/day we met: 4/18`
+    },
+
+    "2025-06-18": {
+      title: "Realizing She Liked Me",
+      description: `realizing she liked me 6/18: mi ranch w her iniya lacey then stayed up watched 2 movies and talked all night until 6am sun came out. we talked insecurities family literally everything.  slept together and scrolled reels in the morning and i put my arm around`
+    },
+
+    "2025-07-01": {
+      title: "Pseudodate 3 / First Kiss",
+      description: `july 1: pseudodate 3: we went to trader joe’s and bought ingredients. kept making fun of the word oil. made a carrot cake and kissed for the first time. then watched movie 7/1`
+    },
+
+    "2025-07-02": {
+      title: "Pseudodate 4",
+      description: `july 2: pseudodate 4: taco buddha then went road trip to buy alc and fireworks for july 4 then made jell-o shots while watching movie 7/2`
+    },
+
+    "2025-07-04": {
+      title: "Asked Her Out Officially",
+      description: `july 4: asked her out officially and we had a great day together`
+    },
+
+    "2025-07-09": {
+      title: "First Official Date",
+      description: `july 9: first official date got her sunflowers then dave n busters then dinner res at napoli iii then sunset on creve coure lake then mocha pointe then movie and slept. was a day out in st charles.`
+    },
+
+    "2025-07-15": {
+      title: "Second Date",
+      description: `july 15: second date she planned it all we went to farmers market then bookstore then dinner at indo then pregame and watched 28 years later then came back and went to sleep`
+    },
+
+    "2025-07-21": {
+      title: "Superman Together",
+      description: `july 21: we watched superman together she bought the wrong tickets but i thought it was cute. then we picked up iniya together from airport and then spent the night`
+    },
+
+    "2025-07-23": {
+      title: "Lumineers Concert",
+      description: `july 23: lumineers concert, we pregamed then drove and the concert was absolutely amazing. at stubborn love at the end i spun her around and we danced. we loved it and spent the night.`
+    },
+
+    "2025-07-30": {
+      title: "Road Trip Day",
+      description: `july 30: road trip day. we drove out 3 hours had dinner at uiuc dim sum but then it rained surprisingly and we couldn’t stargaze. we ended up chasing the sky and clouds and we ended up at a random lake where i gave her the ring. we had very deep conversations that were very vulnerable. then we went home and slept`
+    },
+
+    "2025-08-01": {
+      title: "First Crack",
+      description: `august 1: we drank for iniya’s bday party and then we spent the night at mine for the first time and had sex for the first time`
+    },
+
+    "2025-08-02": {
+      title: "Dear Evan Hansen",
+      description: `august 2: we got dinner at ramen on loop watched dear evan hansen play together at the muny and slept`
+    },
+
+    "2025-08-05": {
+      title: "24 Hour Day, Part 1",
+      description: `august 5-6: 24 hour day. we got mai lee and the conversation was about relationships and differences between guys and girls and stuff. then we got clementines. then we stayed up late talking more. then we slept.`
+    },
+
+    "2025-08-06": {
+      title: "24 Hour Day, Part 2",
+      description: `then we stayed in bed until the afternoon. we gymmed together i came over and did work while she got ready for florida. i dropped her off at the airport, we ended up spending 24 full hours together and talked so much.`
+    },
+
+    "2025-08-29": {
+      title: "Reset Day",
+      description: `aug 29: reset day. i wanted to reset because i finished my mcat and didnt feel like myself. pseudo first date i took her on a first date again we went to st charles boutique street she loved it. got her flowers. gave her flowers on the gazebo. we went to west county after and shopped.`
+    },
+
+    "2025-09-09": {
+      title: "Weekly Date",
+      description: `sep 9: weekly date. went to frontenac to sniff then cate zone chinese place. talked about reservations /unsuredness if there are any. hers was my girl friends. then we did work in her dorm i talked to ella and kara and emily`
+    },
+
+    "2025-09-12": {
+      title: "Dutch Bros Date",
+      description: `sep 12: dutch bros date. dutch bros is 45 minutes out so we went on a mini road trip and made a playlist of all of our songs together. we stayed at dutch bros and talked for a while before driving back and finishing up the playlist.`
+    },
+
+    "2025-09-20": {
+      title: "Double Date",
+      description: `sep 20: double date with alec and lily. we went to chipotle first then aldis to shop for ingredients. me and kelsie walked around and got all the ingredients for our pumpkin spice cinnamon rolls. us 4 baked and ate after it took hours we were all very sleepy.`
+    },
+
+    "2025-09-27": {
+      title: "High Day",
+      description: `sep 27: high day. we took 15mg each and we went to the museum of illusions. all the illusions were trippy and we were laughing so hard. we made out in every elevator. then we went to yellowbelly and got the greatest food of all time. we were silent and just eating. then we got clementines and it was so good. i wanted to stay over but her friends were opps so we slept separate.`
+    },
+
+    "2025-10-02": {
+      title: "Asking Her To Be My Girlfriend",
+      description: `oct 2: asking her to be my girlfriend. spent 2 days planning in between assignments and exams. went to the lafayette park the day before and stayed til it got dark because i realized it was too dark at night. had to change the plans. next day hid the flowers, made the card, bought the snacks. covered flowers in leaves. spent the day rehearsing speech generally. told her it was a day out themed off her. took her vintage shopping first and picked up her bag charm. then we went to another vintage store walked around a bit. then drove by the park and i said ooh we should check this out. took her to the Grotto and my heart was pounding. we watched from the bridge for a bit and i waited until people left so we could have the pond private. sat on the bench and told her to close her eyes. grabbed the flowers and gave her the speech and asked. her eyes weee teary. she said yes. i was so happy. then we walked back and went to sado. the sushi was unbelievable but expensive. we had a classic me and her eating session. then we went to baileys chocolate bar and had tiramisu and horchata martinis they were so good. it was very romantic. we got back home and she read the card and she loved it. i also gave her the snacks. we then consummated the relationship and went to sleep. 
+
+- the speech: i recently told you that you’re my world and when i say those things i don’t just say them i gotta mean them. and i wanted to tell you what i meant when i said that. so when i say that you’re my world i mean that i see you everywhere. i see you when im happy i see you when im sad when im tired. i see you when i see a plate of sushi or an apple or a sunflower. when im in class all i can think about is when im gonna see you next. and when i go to sleep you’re the last thing i think about, and you’re the first thing i think about when i wake up the next morning even if im not with you. and when i am with you i don’t think about anything else. i also think about all our adventures together from the first day you walked into abbott and sat next to me and the staying up talking til sunset, 24 hour day, all the bakes and dates and movie nights. and when i think about my future i see you in it. so when i think about all these things i feel stupid for ever being worried in the first place. and i know this has taken me a while but i wanna ask you now will you be my girlfriend`
+    },
+
+    "2025-10-11": {
+      title: "36 Hours Together, Part 1",
+      description: `october 11-12: 36 hours together. we met up at 8:30 to pregame and then we did the escape annabelle escape room with alec and lily. we slept`
+    },
+
+    "2025-10-12": {
+      title: "36 Hours Together, Part 2",
+      description: `then worked an emt shift together, we’re posted most of the day and we did crossword and listened to a lot of music. we had 2 calls and they were pretty fun. then we got mai lee and ate in the back of the truck. then we went home studied and slept again`
+    },
+
+    "2025-10-19": {
+      title: "Lantern Day and I Love You Day",
+      description: `october 19: lantern day and i love you day. we argued the night before and in the morning i was still frustrated so i left and i went to volunteering to train someone. she painted the underpass. we met up after and were still kind of upset. we started driving and we argued on the drive. we both apologized and it was okay after we hugged. then we got olive garden it was really good. we talked about alec and lily and she said something about her ex that my heart drop until she explained it phew. on the drive there we listened to tangled songs and then some random recommended songs started playing and they were so unbelievably good. we got there and we got our tickets and everything. then we set up everything and got lemonade. then we got my volleyball and went to a field. we spent so long but we didn’t leave until we got a rally of 10. then we went back and laid together and watched the sky and talked for a while. she told me she had a painting for me and that she might not give it to me. so i knew she said i love you in it. then we went and started sampling the food trucks and got our lanterns to decorate. we both ate and then decorated and i wrote my i love you message on it. and then we showed each other our drawings and we lit our lanterns and let them fly and it was so beautiful. and then she read it and was upset because she wanted to say it first and we both said i love you a lot and then we left. we drove back and listened to songs and sang a lot. then we walked back together and slept and cuddled and loved.`
+    },
+
+    "2025-11-02": {
+      title: "La La Land Day",
+      description: `november 2: lala land day. we met up at 720 it was raining. we drove to the fabulous fox theater and went in. it was beautiful inside and we saw the orchestra and got so hyped. watching the movie was so peak we both noticed so much more than usual. the live music gave me chills so many times. the movie got me teary. kelsie cried. emotions were high and the movie was so good. we discussed it at the intermission and finale. then we dressed as deer and hunter and then we went out to humphreys, argued, ate pizza, slept.`
+    },
+
+    "2025-11-06": {
+      title: "Fall Themed Stay In Day",
+      description: `11/6: fall themed stay in day. kelsie planned this one. i came over at 630 and she had cooked an amazing homely dinner. it was chicken and risotto it was peak. it was amazing and we food comad quick. then we gutted a pumpkin and carved it and it was so fun. we carved while watching maze runner. then we had sex and slept.`
+    },
+
+    "2025-11-07": {
+      title: "Zoo Date",
+      description: `11/7: zoo date. we were gonna just work and then kelsie randomly suggested working at the zoo. i was so excited i rushed to eat and she picked me up and we went. no work was done we just decided to zoo instead. we looked all the animals we saw baby cheetahs, baby elephants, baby orangutans, and so many monkeys cats rhinos animals we had so much fun. we sat on bench and watched sea lions while eating. i loved it i love zoo. then we came back and cuddled on a hammock on the 40, watched poetry, and studied had dinner and slept.`
+    },
+
+    "2025-11-14": {
+      title: "Nashville Trip, Day 1",
+      description: `11/14-11/16: nashville trip. friday drove up and got hammered snuck into kid rocks danced night away fucked around.`
+    },
+
+    "2025-11-15": {
+      title: "Nashville Trip, Day 2",
+      description: `saturday shopped ate blacked out threw up she took care of me.`
+    },
+
+    "2025-11-16": {
+      title: "Nashville Trip, Day 3",
+      description: `sunday drove back. so fun so peak so much alc so much country so much dancing so much pictures.`
+    },
+
+    "2025-12-12": {
+      title: "Last Date in St. Louis",
+      description: `12/12: last date in st. louis. kelsie planned all this. we first when to brasas and had one of our classic eating sessions. the potatoes chicken and rice were so good. then we went to watch christmas lights at the botanical garden. was genuinely so fun. the lights were beautiful. then we died laughing at the glass shattering music and the partridge projected on the wall like it had aura. then we toured a victorian christmas house. then we went home and watched lion and i teared up ten times and she cried a lot. she liked it a lot.`
+    },
+
+    "2025-12-14": {
+      title: "Colorado Trip, Day 1",
+      description: `12/14-12/18: colorado trip. we road tripped for 14 hours to her house and made it at 7:30. on the trip we argued, played wavelength, got gifts for family, sang a bunch of songs together, took care of her stupid plant boogan. then i had dinner with her parents brian and his girlfriend and it was fun. then slept`
+    },
+
+    "2025-12-15": {
+      title: "Colorado Trip, Day 2",
+      description: `and left early to dutch bros starbucks and then breckenridge, the mountains were so beautiful, then we spent the day in breck eating lots of good food and drinking hot chocolate and looking at all the stores and gathering the supplies for cabin. then we went to cabin and it was heaven. we made spiked hot chocolate, had xmas movies and music the whole time, did super fun tiktok challenges, made out a lot, did gift exchange, drew each other, stargazed and talked deep for longtime, told horror stories and slept together.`
+    },
+
+    "2025-12-16": {
+      title: "Colorado Trip, Day 3",
+      description: `woke up and cuddled and cleaned then did cold creek foot challenge and drove to get brunch. was so fire, then went to our fire lookout hike and it was super windy but one of the best views i’ve ever seen of the rockies. we made schneegat the snowman. so funny so many laughs. then we went tubing and it was so fun. then we went back to her house and had another dinner with parents. then slept`
+    },
+
+    "2025-12-17": {
+      title: "Colorado Trip, Day 4",
+      description: `and had a day out in denver. went to strip mall and laughed hella hard because i slide cancelled a kiss because she snot bubbled right before it. then we cried laughing with german accent i kept saying hallo ich bin angschtenslaven aggressively. then we ate the worst chocolates of all time. then we went on a seesaw so fun. we ate good sushi. then we went to christmas market but it was closed so we went mall then drove to the airport and said very sad goodbye.`
+    },
+
+    "2026-01-23": {
+      title: "First Copenhagen Date",
+      description: `first copenhagen date 1/23: i planned this one. it was danish themed date. i went to a florist and bought flowers first while she was at her visa appointment. then i did my visa appointment and got back late. we went to the museum in the cold national museum of denmark and we had an hour and a half. we were half rushing but had a great time looking at danish history. we looked at all the swords and picked which one we would wield. we looked at all the history, saw a norse history guided headphone tour and lived through ragnarok, etc. was super cool and we were so interested by everything. then we went to a little danish cafe and had a matcha latte. then we went to judie a danish restaurant on the river and it was so beautiful it was on a boat and we got a table and waited a long time for my pumpkin curry fish and kelsie’s pork neck with black currant. both were very very good. then we went to desserthuset a danish dessert place and we talked about relationships and stuff while i ate a unicorn milkshake and she had lotus cheesecake. very good and then we pre’d and went out that night. very fun date we both loved.`
+    }
+  };
+
+  function parseLocalDate(dateString) {
+    const [year, month, day] = dateString.split("-").map(Number);
+    return new Date(year, month - 1, day);
+  }
+
+  function formatDate(date) {
+    return date.toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric"
+    });
+  }
+
+  function toDateKey(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
+  function addDays(date, days) {
+    const copy = new Date(date);
+    copy.setDate(copy.getDate() + days);
+    return copy;
+  }
+
+  function buildTimelineDates() {
+    const dates = [];
+    let current = parseLocalDate(TIMELINE_START_DATE);
+    const end = parseLocalDate(TIMELINE_END_DATE);
+
+    while (current <= end) {
+      dates.push(toDateKey(current));
+      current = addDays(current, 1);
+    }
+
+    return dates;
+  }
+
+  function getDefaultTitle(dateKey) {
+    if (memoryData[dateKey]?.title) return memoryData[dateKey].title;
+    return "Untitled Memory";
+  }
+
+  function getDefaultDescription(dateKey) {
+    if (memoryData[dateKey]?.description) return memoryData[dateKey].description;
+    return "Add description here.";
+  }
+
+  function createTimelineCard(dateKey, index) {
+    const date = parseLocalDate(dateKey);
+    const side = index % 2 === 0 ? "left" : "right";
+    const tags = firsts[dateKey] || [];
+    const themeClass = themedCards[dateKey] || "";
+    const title = getDefaultTitle(dateKey);
+    const description = getDefaultDescription(dateKey);
+    const isLong = description.length > 220;
+
+    const item = document.createElement("article");
+    item.className = `timeline-item ${side} ${themeClass}`;
+    item.id = `date-${dateKey}`;
+
+    item.dataset.date = dateKey;
+    item.dataset.search = `
+      ${dateKey}
+      ${formatDate(date)}
+      ${title}
+      ${description}
+      ${tags.join(" ")}
+    `.toLowerCase();
+
+    item.innerHTML = `
+      <div class="timeline-dot"></div>
+
+      <div class="timeline-card">
+        <div class="timeline-card-top">
+          <p class="timeline-date">${formatDate(date)}</p>
+          ${tags.length ? `<span class="first-badge">✦ First</span>` : ""}
+        </div>
+
+        <h2>${title}</h2>
+
+        <div class="timeline-description ${isLong ? "collapsed" : ""}">
+          <p>${description}</p>
+        </div>
+
+        ${isLong ? `<button class="read-more-button">Read more</button>` : ""}
+      </div>
+    `;
+
+    return item;
+  }
+
+  function renderTimeline() {
+    const container = document.getElementById("timelineContainer");
+    const dates = buildTimelineDates();
+
+    container.innerHTML = "";
+
+    dates.forEach((dateKey, index) => {
+      const card = createTimelineCard(dateKey, index);
+      container.appendChild(card);
+    });
+
+    updateCount();
+    setupReadMoreButtons();
+  }
+
+  function setupReadMoreButtons() {
+  document.querySelectorAll(".read-more-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const card = button.closest(".timeline-card");
+      const description = card.querySelector(".timeline-description");
+
+      description.classList.toggle("collapsed");
+      card.classList.toggle("expanded");
+
+      button.textContent = description.classList.contains("collapsed")
+        ? "Read more"
+        : "Show less";
+    });
+  });
+}
+
+  function updateCount() {
+    const visibleCards = document.querySelectorAll(".timeline-item:not(.hidden)").length;
+    const totalCards = document.querySelectorAll(".timeline-item").length;
+
+    document.getElementById("timelineCount").textContent =
+      `${visibleCards} of ${totalCards} timeline cards showing`;
+  }
+
+  function searchTimeline(query) {
+    const cleanedQuery = query.trim().toLowerCase();
+    const cards = document.querySelectorAll(".timeline-item");
+
+    cards.forEach((card) => {
+      if (!cleanedQuery) {
+        card.classList.remove("hidden");
+        return;
+      }
+
+      const matches = card.dataset.search.includes(cleanedQuery);
+      card.classList.toggle("hidden", !matches);
+    });
+
+    updateCount();
+  }
+
+  function jumpToRandomVisibleCard() {
+    const visibleCards = Array.from(
+      document.querySelectorAll(".timeline-item:not(.hidden)")
+    );
+
+    if (!visibleCards.length) return;
+
+    const randomCard = visibleCards[Math.floor(Math.random() * visibleCards.length)];
+
+    randomCard.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+    randomCard.classList.add("random-highlight");
+
+    setTimeout(() => {
+      randomCard.classList.remove("random-highlight");
+    }, 1400);
+  }
+
+  document.getElementById("timelineSearch").addEventListener("input", (event) => {
+    searchTimeline(event.target.value);
+  });
+
+  document.getElementById("randomMemory").addEventListener("click", () => {
+    jumpToRandomVisibleCard();
+  });
+
+  document.getElementById("clearSearch").addEventListener("click", () => {
+    document.getElementById("timelineSearch").value = "";
+    searchTimeline("");
+  });
+
+  renderTimeline();
+</script>
+  
+</body>
+</html>
